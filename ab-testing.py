@@ -11,8 +11,8 @@ df = df.drop_duplicates(subset=['user_id'])
 
 # z-тест
 grouped = df.groupby('group')
-conv_counts = grouped['converted'].sum()  # конверсии
-user_counts = grouped['converted'].count()  # пользователи
+conv_counts = grouped['converted'].sum()  # количество конверсий
+user_counts = grouped['converted'].count()  # количество пользователей
 convs = conv_counts / user_counts  # конверсии
 z, p = proportions_ztest(conv_counts, user_counts)
 
