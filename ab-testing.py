@@ -1,7 +1,7 @@
 import pandas as pd
 from statsmodels.stats.proportion import proportions_ztest, confint_proportions_2indep
 
-# очистка данных от ошибок
+# очистка данных от ошибок и дубликатов
 df = pd.read_csv('../База данных/data.csv')
 df = df[
     ((df['group'] == 'control') & (df['landing_page'] == 'old_page')) |
@@ -11,8 +11,8 @@ df = df.drop_duplicates(subset=['user_id'])
 
 # z-тест
 grouped = df.groupby('group')
-conv_counts = grouped['converted'].sum()  # количества конверсий
-user_counts = grouped['converted'].count()  # количества пользователей
+conv_counts = grouped['converted'].sum()  # конверсии
+user_counts = grouped['converted'].count()  # пользователи
 convs = conv_counts / user_counts  # конверсии
 z, p = proportions_ztest(conv_counts, user_counts)
 
